@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-api
+  namespace: argo-cd
+spec:
+  project: default
+  destination:
+    namespace: cluster-api
+    server: 'https://kubernetes.default.svc'
+  sources:
+    - repoURL: https://github.com/Archisman-Mridha/kubeaid
+      path: argocd-helm-charts/cluster-api
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $values/k8s/kubeaid-cluster-bootstrap-script-demo/argocd-apps/values-cluster-api.yaml
+    - repoURL: https://github.com/Archisman-Mridha/kubeaid-config
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
