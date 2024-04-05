@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  source:
+    path: k8s/kcm/argocd-apps
+    repoURL: https://github.com/Obmondo/kubeaid-config.git
+    targetRevision: kubeaid-initial-setup-kcm
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true

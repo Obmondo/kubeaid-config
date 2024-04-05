@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-api
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: cluster-api
+    server: 'https://kubernetes.default.svc'
+  sources:
+    - repoURL: https://github.com/Obmondo/kubeaid.git
+      path: argocd-helm-charts/cluster-api
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $values/k8s/kcm/argocd-apps/values-cluster-api.yaml
+    - repoURL: https://github.com/Obmondo/kubeaid-config.git
+      targetRevision: kubeaid-initial-setup-kcm
+      ref: values
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
