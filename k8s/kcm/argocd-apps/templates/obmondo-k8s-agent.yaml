@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: obmondo-k8s-agent
+  namespace: argo-cd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: obmondo
+  project: default
+  sources:
+    - repoURL: https://github.com/Obmondo/kubeaid.git
+      path: argocd-helm-charts/obmondo-k8s-agent
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $values/k8s//kcmargocd-apps/values-obmondo-k8s-agent.yaml
+    - repoURL: https://github.com/Obmondo/kubeaid-config.git
+      targetRevision: kubeaid-initial-setup-kcm
+      ref: values
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+    - CreateNamespace=true
