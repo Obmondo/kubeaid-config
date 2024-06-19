@@ -31,7 +31,11 @@ aws:
     region: us-east-2
     replicas: 1
     instanceType: t2.medium
+    ami:
+      id: ami-05145146e3a9db6f3
   workerNodes:
     region: us-east-2
     replicas: 2
     instanceType: t2.medium
+    ami:
+      id: ami-05145146e3a9db6f3
