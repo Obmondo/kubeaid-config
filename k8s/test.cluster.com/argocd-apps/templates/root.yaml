@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     path: k8s/test.cluster.com/argocd-apps
-    repoURL: your-k8id-config-url like git@github.com:Obmondo/k8id-config.git
+    repoURL: https://github.com/Archisman-Mridha/kubeaid-config.git
     targetRevision: HEAD
   syncPolicy:
     syncOptions:
