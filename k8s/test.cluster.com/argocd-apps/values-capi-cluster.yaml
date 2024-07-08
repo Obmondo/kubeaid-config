@@ -2,7 +2,7 @@ global:
   clusterName: test.cluster.com
   customerid: kubeaid-demo
   kubernetes:
-    version: v1.28.3
+    version: v1.28.2
   clusterAPI:
     version: v1.7.2
   capa:
