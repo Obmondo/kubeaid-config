@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: capi-cluster
+  namespace: argo-cd
+
+spec:
+  destination:
+    namespace: capi-cluster-kubeaid-demo
+    server: https://kubernetes.default.svc
+  sources:
+    - repoURL: https://github.com/Archisman-Mridha/kubeaid.git
+      path: argocd-helm-charts/capi-cluster
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $values/k8s/test.cluster.com/argocd-apps/values-capi-cluster-aws.yaml
+    - repoURL: https://github.com/Archisman-Mridha/kubeaid-config.git
+      targetRevision: HEAD
+      ref: values
+  project: default
+  syncPolicy:
+    automated: null
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
