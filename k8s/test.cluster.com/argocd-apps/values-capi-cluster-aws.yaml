@@ -2,11 +2,11 @@ global:
   clusterName: test.cluster.com
   customerid: kubeaid-demo
   kubernetes:
-    version: v1.28.2
+    version: v1.31.0
   clusterAPI:
-    version: v1.7.2
+    version: v1.8.1
   capa:
-    version: v2.5.0
+    version: v2.6.1
     autoScaler: true
   kubeaid:
     repo: https://github.com/Archisman-Mridha/kubeaid.git
@@ -30,12 +30,12 @@ aws:
     loadBalancerType: classic
     region: us-east-2
     replicas: 1
-    instanceType: t2.medium
+    instanceType: t4g.medium
     ami:
-      id: ami-05145146e3a9db6f3
+      id: ami-0852e920721ed3268
   workerNodes:
     region: us-east-2
     replicas: 2
-    instanceType: t2.medium
+    instanceType: t4g.medium
     ami:
-      id: ami-05145146e3a9db6f3
+      id: ami-0852e920721ed3268
