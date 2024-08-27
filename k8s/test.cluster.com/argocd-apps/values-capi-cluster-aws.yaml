@@ -2,7 +2,7 @@ global:
   clusterName: test.cluster.com
   customerid: kubeaid-demo
   kubernetes:
-    version: v1.31.0
+    version: v1.29.0
   clusterAPI:
     version: v1.8.1
   capa:
@@ -32,10 +32,10 @@ aws:
     replicas: 1
     instanceType: t4g.medium
     ami:
-      id: ami-0852e920721ed3268
+      id: ami-0f7448e8ce7fe91fa
   workerNodes:
     region: us-east-2
     replicas: 2
     instanceType: t4g.medium
     ami:
-      id: ami-0852e920721ed3268
+      id: ami-0f7448e8ce7fe91fa
