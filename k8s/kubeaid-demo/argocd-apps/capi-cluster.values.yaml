@@ -1,0 +1,41 @@
+global:
+  clusterName: kubeaid-demo
+  customerid: archi
+  kubernetes:
+    version: v1.29.0
+  clusterAPI:
+    version: v1.8.1
+  capa:
+    version: v2.6.1
+    autoScaler: true
+  kubeaid:
+    repo: https://github.com/Archisman-Mridha/kubeaid
+  kubeaidConfig:
+    repo: https://github.com/Archisman-Mridha/kubeaid-config
+
+provider:
+  aws: true
+
+aws:
+  secretName: cloud-credentials
+  sshKeyName: kubeaid-demo
+  region: us-east-2
+  bastion:
+    enabled: true
+  vpc:
+    cidrBlock: 10.14.0.0/22
+  pods:
+    cidrBlock: 10.244.0.0/16
+  controlPlane:
+    loadBalancerType: classic
+    region: us-east-2
+    replicas: 1
+    instanceType: t4g.medium
+    ami:
+      id: ami-0f7448e8ce7fe91fa
+  workerNodes:
+    region: us-east-2
+    replicas: 2
+    instanceType: t4g.medium
+    ami:
+      id: ami-0f7448e8ce7fe91fa
