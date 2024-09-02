@@ -2,7 +2,7 @@ global:
   clusterName: test.cluster.com
   customerid: kubeaid-demo
   kubernetes:
-    version: v1.29.0
+    version: v1.28.3
   clusterAPI:
     version: v1.8.1
   capa:
@@ -19,7 +19,7 @@ provider:
 aws:
   secretName: capi-cluster-token
   sshKeyName: kubeaid-demo
-  region: us-east-2
+  region: eu-west-1
   bastion:
     enabled: true
   vpc:
@@ -27,15 +27,15 @@ aws:
   pods:
     cidrBlock: 10.244.0.0/16
   controlPlane:
-    loadBalancerType: classic
-    region: us-east-2
-    replicas: 1
-    instanceType: t4g.medium
+    loadBalancerType: nlb
+    region: eu-west-1
+    replicas: 3
+    instanceType: t3a.large
     ami:
-      id: ami-0f7448e8ce7fe91fa
+      id: ami-03cd26c84ae9a587c
   workerNodes:
-    region: us-east-2
+    region: eu-west-1
     replicas: 2
-    instanceType: t4g.medium
+    instanceType: t3a.large
     ami:
-      id: ami-0f7448e8ce7fe91fa
+      id: ami-03cd26c84ae9a587c
