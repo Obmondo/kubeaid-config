@@ -1,0 +1,44 @@
+global:
+  clusterName: capi-staging
+  customerid: bw7
+  kubernetes:
+    version: v1.31.0
+  clusterAPI:
+    version: v1.8.1
+  capa:
+    version: v2.6.1
+    autoScaler: true
+  kubeaid:
+    repo: https://github.com/Obmondo/KubeAid
+  kubeaidConfig:
+    repo: https://github.com/nihaldivyam/kubeaid-config
+
+provider:
+  aws: true
+
+aws:
+  secretName: cloud-credentials
+  sshKeyName: capi-staging
+  region: eu-west-1
+  bastion:
+    enabled: true
+  vpc:
+    cidrBlock: 10.14.0.0/22
+  pods:
+    cidrBlock: 10.244.0.0/16
+  controlPlane:
+    loadBalancer:
+      loadBalancerType: nlb
+    region: eu-west-1
+    replicas: 3
+    instanceType: t4g.medium
+    ami:
+      id: ami-09615cf870bc4ba4d
+  machinePools:
+    - name: primary
+      replicas: 2
+      instanceType: t4g.medium
+      sshKeyName: kubeaid-demo
+      ami:
+        id: ami-09615cf870bc4ba4d
+      rootVolumeSize: 35
