@@ -1,5 +1,5 @@
 global:
-  clusterName: capi-staging
+  clusterName: guilherme-test
   customerid: bw7
   kubernetes:
     version: v1.31.0
@@ -18,7 +18,7 @@ provider:
 
 aws:
   secretName: cloud-credentials
-  sshKeyName: capi-staging
+  sshKeyName: guilherme-test
   region: eu-west-1
   bastion:
     enabled: true
@@ -36,9 +36,9 @@ aws:
       id: ami-09615cf870bc4ba4d
   machinePools:
     - name: primary
-      replicas: 2
+      replicas: 1
       instanceType: t4g.medium
-      sshKeyName: kubeaid-demo
+      sshKeyName: guilherme-test
       ami:
         id: ami-09615cf870bc4ba4d
       rootVolumeSize: 35

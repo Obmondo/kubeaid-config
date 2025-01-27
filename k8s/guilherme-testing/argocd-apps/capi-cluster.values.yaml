@@ -1,0 +1,76 @@
+global:
+  clusterName: guilherme-testing
+  kubernetes:
+    version: v1.31.0
+  kubeaid:
+    repo: https://github.com/Obmondo/KubeAid
+  kubeaidConfig:
+    repo: https://github.com/guilherme-santos03/kubeaid-config-capi-test
+provider:
+  aws: true
+
+aws:
+  secretName: cloud-credentials
+  sshKeyName: tech-lift-roi-sre
+  region: eu-west-1
+  bastion:
+    enabled: true
+  vpc:
+    cidrBlock: 10.14.0.0/22
+  pods:
+    cidrBlock: 10.244.0.0/16
+  controlPlane:
+    loadBalancer:
+      loadBalancerType: nlb
+    region: eu-west-1
+    replicas: 1
+    instanceType: t4g.medium
+    ami:
+      id: ami-09615cf870bc4ba4d
+    apiServer: 
+      extraArgs:
+          audit-log-maxage: "10"
+          audit-log-maxbackup: "1"
+          audit-log-maxsize: "100"
+          audit-log-path: /var/log/kube-apiserver-audit.logs
+          audit-policy-file: /srv/kubernetes/audit.yaml
+      extraVolumes:
+          - name: audit-policy-file
+            hostPath: /srv/kubernetes/audit.yaml
+            mountPath: /srv/kubernetes/audit.yaml
+            pathType: FileOrCreate
+            readOnly: true
+          - name: log-backend
+            hostPath: /var/log/kube-apiserver-audit.logs
+            mountPath: /var/log/kube-apiserver-audit.logs
+            pathType: FileOrCreate
+      files:
+          - path: /srv/kubernetes/audit.yaml
+            content: |
+              apiVersion: audit.k8s.io/v1
+              kind: Policy
+              # Don't generate audit events for all requests in the RequestReceived stage.
+              omitStages:
+                - "RequestReceived"
+              rules:
+                # Log events with metadata (requesting user, timestamp, resource, verb, etc.) but not request or
+                # response body.
+                - level: Metadata
+                  # Long-running requests like watches that fall under this rule will not generate an audit event
+                  # in RequestReceived stage. We will omit those logs.
+                  omitStages:
+                    - "RequestReceived"
+  nodeGroups:
+  - name: primary
+    replicas: 2
+    minSize: 2
+    maxSize: 2
+    instanceType: t4g.medium
+    sshKeyName: tech-lift-roi-sre
+    ami:
+      id: ami-09615cf870bc4ba4d
+    rootVolumeSize: 35
+    labels:
+      node-role.kubernetes.io/worker: ""
+      node.cluster.x-k8s.io/nodegroup: general-nodes-a
+    taints: []

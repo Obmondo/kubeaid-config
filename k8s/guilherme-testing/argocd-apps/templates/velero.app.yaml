@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: velero
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: velero
+  project: default
+  sources:
+    - repoURL: https://github.com/Obmondo/KubeAid
+      path: argocd-helm-charts/velero
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $values/k8s/guilherme-testing/argocd-apps/velero.values.yaml
+    - repoURL: https://github.com/guilherme-santos03/kubeaid-config-capi-test
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true

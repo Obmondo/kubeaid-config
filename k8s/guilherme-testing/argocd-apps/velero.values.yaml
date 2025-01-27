@@ -1,0 +1,27 @@
+LoadCustomCRDs: true
+velero:
+  configuration:
+    extraEnvVars:
+      AWS_CLUSTER_NAME: guilherme-testing
+    backupStorageLocation:
+      - name: default
+        bucket: kubeaid-demo-kubernetes-objects
+        config:
+          region: eu-west-1
+        provider: aws
+    volumeSnapshotLocation:
+      - name: default
+        provider: aws
+        config:
+          region: eu-west-1
+    features: EnableCSI
+  initContainers:
+    - name: velero-velero-plugin-for-aws
+      image: "velero/velero-plugin-for-aws:v1.7.1"
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
+  podAnnotations:
+    iam.amazonaws.com/role: arn:aws:iam::438423213058:role/velero-guilherme-testing
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
