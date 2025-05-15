@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: "10.0.0"
+    kubeaid.io/managed-by: "kubeaid"
+    kubeaid.io/priority: "default"
+  name: argo-cd
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-cd
+  project: kubeaid
+  sources:
+    - repoURL: https://github.com/Obmondo/KubeAid
+      path: argocd-helm-charts/argo-cd
+      targetRevision: 10.0.0
+      helm:
+        valueFiles:
+          - $values/k8s/kubeaid-demo-local/argocd-apps/argo-cd.values.yaml
+    - repoURL: https://github.com/1Shubham7/kubeaid-config
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true
