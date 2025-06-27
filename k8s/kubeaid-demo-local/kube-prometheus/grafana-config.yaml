@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/part-of: kube-prometheus
+    app.kubernetes.io/version: 11.2.0
+  name: grafana-config
+  namespace: monitoring
+stringData:
+  grafana.ini: "[analytics]\ncheck_for_updates = false\n[auth]\ndisable_login_form = false\ndisable_signout_menu = false\n[date_formats]\ndefault_timezone = UTC\n[server]\nroot_url = \n"
+type: Opaque
