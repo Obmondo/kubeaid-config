@@ -1,0 +1,62 @@
+global:
+  clusterName: kubeaid-demo-hybrid
+  kubernetes:
+    version: v1.32.0
+  kubeaid:
+    repo: https://github.com/Archisman-Mridha/kubeaid
+  kubeaidConfig:
+    repo: https://github.com/Archisman-Mridha/kubeaid-config
+  additionalUsers: 
+    - name: archi
+      sshPublicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCMB0BJ1vL53/xiDCfswJWOrBYc39MbnmMnAK9ATohDqgT1ZrvLODbw5T1NTOLsVyuWNXMB9HfPPXg3Qm5L5UXoIj5JeyIY1ArUxjdW5LI4fsYgYHfRSv3gSZFpuJj12+myBxdoNYCDNDrzYF5T3D2is0lqcSG+3UerkY7ox8WuHMSO69bUAn72ugw01TgycdXpX5jvGLb84yl2Xct1/YFsh9UKhVYWx8qdz5r7FM4h5KDIIi2yjAEjwm4DfYKT/9dlzTodzeim4Z755AGXpFWjlQYaV8vNLHhIkDEtDOZTDtePFwQ64cw1e8cYzuRqDRxCVA9mWQtWwbMgklAv5h0ZTu8cJ9XcomQV9W2NCieBJyu+bj71AKFg3qTD9aMBq2zBXshoZwvmPlrIfAreALPEcPQvn6T8vHGvfk6Pf91B7I1Tu9ds0X0Vp5KELR6wwZQx2JKwMJillzC4Z3GY4/oi5J5C6WnlB3TxCvsivBo3TtEc3phylnfHNvRbwCqch2k= robot-webservice-app-user
+provider:
+  hetzner: true
+
+hetzner:
+  mode: hybrid
+  hcloud:
+    zone: eu-central
+    imageName: ubuntu-24.04
+    sshKeyPairName: kubeaid-demo
+  bareMetal:
+    wipeDisks: true
+    sshKeyPair:
+      name: cluster
+    installImage:
+      imagePath: /root/.oldroot/nfs/images/Ubuntu-2404-noble-amd64-base.tar.gz
+
+  controlPlane:
+    regions: 
+      - fsn1
+      - nbg1
+      - hel1
+
+    
+    hcloud: 
+      machineType: cax11
+      replicas: 1
+      loadBalancer:
+        enabled: true
+        region: hel1
+
+  nodeGroups: 
+    hcloud: []
+    bareMetal:
+      - name: bootstrapper
+        labels:
+          node-role.kubernetes.io/bootstrapper: ""
+          node.cluster.x-k8s.io/nodegroup: bootstrapper
+        taints: []
+        bareMetalHosts:
+          - serverID: "1866484"
+            wwns:
+              - "0x50014ee2097c6ca4"
+              - "0x50014ee2097c9304"
+          - serverID: "1866472"
+            wwns:
+              - "0x50000397cb700acd"
+              - "0x500003981be00179"
+          - serverID: "1866482"
+            wwns:
+              - "0x5000cca25ed86494"
+              - "0x5000cca25ecf496b"
