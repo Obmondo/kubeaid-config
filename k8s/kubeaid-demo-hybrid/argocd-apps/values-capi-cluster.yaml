@@ -34,7 +34,7 @@ hetzner:
     
     hcloud: 
       machineType: cax11
-      replicas: 1
+      replicas: 3
       loadBalancer:
         enabled: true
         region: hel1
