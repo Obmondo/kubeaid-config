@@ -4,3 +4,10 @@ hcloud-csi:
       existingSecret:
         name: cloud-credentials
         key: hcloud
+
+    nodeSelector:
+      node.cluster.x-k8s.io/cloud-provider: hcloud
+
+  node:
+    nodeSelector:
+      node.cluster.x-k8s.io/cloud-provider: hcloud
