@@ -1,0 +1,64 @@
+apiVersion: kubeone.k8c.io/v1beta2
+kind: KubeOneCluster
+
+name: kubeaid-demo-bare-metal
+
+cloudProvider:
+  none: {}
+
+versions:
+  kubernetes: v1.31.0
+
+apiEndpoint: 
+  host: 188.245.118.15
+  port: 6443
+
+controlPlane:
+  hosts:
+    - publicAddress: 188.245.118.15
+      sshPort: 22
+      sshUsername: root
+      sshPrivateKeyFile: ./outputs/ssh/rsa/openssh/.key
+
+clusterNetwork:
+  podSubnet: "10.244.0.0/16"
+  serviceSubnet: "10.96.0.0/12"
+  cni:
+    external: {}
+  kubeProxy:
+    skipInstallation: true
+
+machineController:
+  deploy: false
+
+operatingSystemManager:
+  deploy: false
+
+staticWorkers:
+  hosts:
+    - publicAddress: 157.180.41.173
+      sshPort: 22
+      sshUsername: root
+      sshPrivateKeyFile: ./outputs/ssh/rsa/openssh/.key
+      labels: 
+        node-role.kubernetes.io/bootstrapper: ""
+        node.cluster.x-k8s.io/nodegroup: bootstrapper
+      taints: 
+        []
+
+dynamicWorkers: []
+
+helmReleases:
+  - repoURL: https://helm.cilium.io/
+    chart: cilium
+    version: 1.17.5
+    releaseName: cilium
+    namespace: cilium
+    wait: true
+    values:
+      - inline:
+          operator:
+            replicas: 1
+          kubeProxyReplacement: "true"
+          k8sServiceHost: 188.245.118.15
+          k8sServicePort: 6443

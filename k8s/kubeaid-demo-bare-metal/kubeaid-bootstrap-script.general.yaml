@@ -1,0 +1,34 @@
+forkURLs:
+  kubeaid: https://github.com/Archisman-Mridha/kubeaid
+  kubeaidConfig: https://github.com/Archisman-Mridha/kubeaid-config
+
+cluster:
+  name: kubeaid-demo-bare-metal
+  k8sVersion: v1.31.0
+  kubeaidVersion: HEAD
+
+cloud:
+  bare-metal:
+    ssh:
+      privateKeyFilePath: ./outputs/ssh/rsa/openssh/.key
+
+    controlPlane:
+      endpoint:
+        host: "188.245.118.15"
+        port: 6443
+      hosts:
+        - publicAddress: "188.245.118.15"
+          sshPort: 22
+          sshUsername: root
+
+    nodeGroups:
+      - name: bootstrapper
+        hosts:
+          - publicAddress: "157.180.41.173"
+            sshPort: 22
+            sshUsername: root
+        labels:
+          node-role.kubernetes.io/bootstrapper: ""
+          node.cluster.x-k8s.io/nodegroup: bootstrapper
+        taints: []
+

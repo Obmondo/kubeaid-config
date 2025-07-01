@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: "HEAD"
+    kubeaid.io/managed-by: "kubeaid"
+    kubeaid.io/sync-order: "10"
+  name: cilium
+  namespace: argocd
+spec:
+  destination:
+    namespace: cilium
+    server: https://kubernetes.default.svc
+  project: kubeaid
+  sources:
+    - repoURL: https://github.com/Archisman-Mridha/kubeaid
+      path: argocd-helm-charts/cilium
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $values/k8s/kubeaid-demo-bare-metal/argocd-apps/values-cilium.yaml
+    - repoURL: https://github.com/Archisman-Mridha/kubeaid-config
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  ignoreDifferences:
+    - kind: Secret
+      name: cilium-ca
+      jsonPointers:
+        - /data
+    - kind: Secret
+      name: hubble-server-certs
+      jsonPointers:
+        - /data
+    - kind: Secret
+      name: hubble-relay-client-certs
+      jsonPointers:
+        - /data
