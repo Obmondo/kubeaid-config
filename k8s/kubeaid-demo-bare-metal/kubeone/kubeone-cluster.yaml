@@ -7,7 +7,7 @@ cloudProvider:
   none: {}
 
 versions:
-  kubernetes: v1.31.0
+  kubernetes: v1.32.0
 
 apiEndpoint: 
   host: 188.245.118.15

@@ -4,7 +4,7 @@ forkURLs:
 
 cluster:
   name: kubeaid-demo-bare-metal
-  k8sVersion: v1.31.0
+  k8sVersion: v1.32.0
   kubeaidVersion: HEAD
 
 cloud:
