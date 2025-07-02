@@ -1,0 +1,14 @@
+customerID: archi
+
+forkURLs:
+  kubeaid: https://github.com/Obmondo/KubeAid
+  kubeaidConfig: https://github.com/Archisman-Mridha/kubeaid-config
+
+cluster:
+  name: kubeaid-demo-local-customer
+  k8sVersion: v1.31.0
+  kubeaidVersion: HEAD
+
+cloud:
+  local: {}
+
