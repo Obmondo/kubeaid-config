@@ -18,7 +18,6 @@ controlPlane:
     - publicAddress: 188.245.118.15
       sshPort: 22
       sshUsername: root
-      sshPrivateKeyFile: ./outputs/ssh/rsa/openssh/.key
 
 clusterNetwork:
   podSubnet: "10.244.0.0/16"
@@ -39,7 +38,6 @@ staticWorkers:
     - publicAddress: 157.180.41.173
       sshPort: 22
       sshUsername: root
-      sshPrivateKeyFile: ./outputs/ssh/rsa/openssh/.key
       labels: 
         node-role.kubernetes.io/bootstrapper: ""
         node.cluster.x-k8s.io/nodegroup: bootstrapper
