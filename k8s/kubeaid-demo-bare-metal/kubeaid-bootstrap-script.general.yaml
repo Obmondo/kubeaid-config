@@ -15,17 +15,17 @@ cloud:
 
     controlPlane:
       endpoint:
-        host: "188.245.118.15"
+        host: "157.180.41.173"
         port: 6443
       hosts:
-        - publicAddress: "188.245.118.15"
+        - publicAddress: "157.180.41.173"
           sshPort: 22
           sshUsername: root
 
     nodeGroups:
       - name: bootstrapper
         hosts:
-          - publicAddress: "157.180.41.173"
+          - publicAddress: "157.180.27.42"
             sshPort: 22
             sshUsername: root
         labels:
