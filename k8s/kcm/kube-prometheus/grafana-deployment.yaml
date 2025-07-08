@@ -72,9 +72,6 @@ spec:
         - mountPath: /grafana-dashboard-definitions/0/apiserver
           name: grafana-dashboard-apiserver
           readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/ceph
-          name: grafana-dashboard-ceph
-          readOnly: false
         - mountPath: /grafana-dashboard-definitions/0/cert-manager
           name: grafana-dashboard-cert-manager
           readOnly: false
@@ -203,9 +200,6 @@ spec:
       - configMap:
           name: grafana-dashboard-apiserver
         name: grafana-dashboard-apiserver
-      - configMap:
-          name: grafana-dashboard-ceph
-        name: grafana-dashboard-ceph
       - configMap:
           name: grafana-dashboard-cert-manager
         name: grafana-dashboard-cert-manager
