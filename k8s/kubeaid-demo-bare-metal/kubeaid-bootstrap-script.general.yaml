@@ -9,10 +9,9 @@ cluster:
 
 cloud:
   bare-metal:
-    ssh:
-      {}
-      # privateKey:
-      #   privateKeyFilePath: ./outputs/ssh/rsa/openssh/.key
+    ssh: {}
+    #   privateKey:
+    #     privateKeyFilePath: ./outputs/ssh/rsa/openssh/.key
 
     controlPlane:
       endpoint:

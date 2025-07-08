@@ -15,9 +15,9 @@ apiEndpoint:
 
 controlPlane:
   hosts:
-    - publicAddress: 188.245.118.15
-      sshPort: 22
+    - sshPort: 22
       sshUsername: root
+      publicAddress: 188.245.118.15
 
 clusterNetwork:
   podSubnet: "10.244.0.0/16"
@@ -35,9 +35,10 @@ operatingSystemManager:
 
 staticWorkers:
   hosts:
-    - publicAddress: 157.180.41.173
-      sshPort: 22
+    - sshPort: 22
       sshUsername: root
+      publicAddress: 157.180.41.173
+
       labels: 
         node-role.kubernetes.io/bootstrapper: ""
         node.cluster.x-k8s.io/nodegroup: bootstrapper
