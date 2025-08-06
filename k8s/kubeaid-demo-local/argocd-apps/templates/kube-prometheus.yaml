@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: 16.0.1
+    kubeaid.io/managed-by: kubeaid
+    kubeaid.io/sync-order: "50"
+  name: kube-prometheus
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  project: kubeaid
+  source:
+    path: k8s/kubeaid-demo-local/kube-prometheus
+    repoURL: https://github.com/AnshShah-18/kubeaid-config
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true
