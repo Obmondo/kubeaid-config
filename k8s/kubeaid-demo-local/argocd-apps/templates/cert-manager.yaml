@@ -19,7 +19,7 @@ spec:
       helm:
         valueFiles:
           - $values/k8s/kubeaid-demo-local/argocd-apps/values-cert-manager.yaml
-    - repoURL: https://github.com/asifulhaque786/kubeaid-config
+    - repoURL: https://github.com/Akshaykumar05/kubeaid-config
       targetRevision: HEAD
       ref: values
   syncPolicy:

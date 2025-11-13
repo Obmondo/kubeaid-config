@@ -4,7 +4,7 @@ forkURLs:
   kubeaid: https://github.com/Obmondo/KubeAid
 
   # Your KubeAid config repository URL (in HTTPs/SSH syntax).
-  kubeaidConfig: https://github.com/asifulhaque786/kubeaid-config
+  kubeaidConfig: https://github.com/Akshaykumar05/kubeaid-config
 
 # Kubernetes cluster and control-plane specific configurations.
 cluster:
@@ -31,7 +31,7 @@ git:
   useSSHPrivateKeyAuth: false
 
   # Path to the SSH private key file on the host machine.
-  # privateKeyFilePath: 'path/to/private/key'
+  # privateKeyFilePath: '/home/akshay/.ssh/id_rsa'
 
 argocd:
   # Use SSH private key authentication to authenticate against the Git platform.
@@ -45,6 +45,6 @@ argocd:
 
   # # ArgoCD KubeAid config repository URL (in HTTPs/SSH syntax).
   # # If not set, defaults to forkURLs.kubeaidConfig
-kubeaidConfigURL: https://github.com/asifulhaque786/kubeaid-config
+  kubeaidConfigURL: https://github.com/Akshaykumar05/kubeaid-config
 
 
