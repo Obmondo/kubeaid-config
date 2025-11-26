@@ -1,9 +1,1 @@
 ---
-cilium:
-  kubeProxyReplacement: "true"
-  k8sServiceHost: 
-  k8sServicePort: 0
-
-  
-  extraArgs:
-    - "--devices=eth0,enp+"
