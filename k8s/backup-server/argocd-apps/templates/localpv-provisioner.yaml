@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: 20.1.1
+    kubeaid.io/managed-by: kubeaid
+    kubeaid.io/sync-order: "10"
+  name: localpv-provisioner
+  namespace: argocd
+  finalizers:
+    - argocd.argoproj.io/resources-finalizer
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: localpv-provisioner
+  project: kubeaid
+  sources:
+    - repoURL: https://github.com/Obmondo/KubeAid
+      path: argocd-helm-charts/localpv-provisioner
+      targetRevision: 20.1.1
+      helm:
+        valueFiles:
+          - $values/k8s/backup-server/argocd-apps/values-localpv-provisioner.yaml
+    - repoURL: https://github.com/asifulhaque786/kubeaid-config
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true

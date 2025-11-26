@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: 20.1.1
+    kubeaid.io/managed-by: kubeaid
+    kubeaid.io/sync-order: "10"
+  name: capi-cluster
+  namespace: argocd
+spec:
+  destination:
+    namespace: capi-cluster
+    server: https://kubernetes.default.svc
+  sources:
+    - repoURL: https://github.com/Obmondo/KubeAid
+      path: argocd-helm-charts/capi-cluster
+      targetRevision: 20.1.1
+      helm:
+        valueFiles:
+          - $values/k8s/backup-server/argocd-apps/values-capi-cluster.yaml
+    - repoURL: https://github.com/asifulhaque786/kubeaid-config
+      targetRevision: HEAD
+      ref: values
+  project: kubeaid
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  ignoreDifferences:
+    - group: cluster.x-k8s.io
+      kind: MachineDeployment
+      jsonPointers:
+        - /spec/replicas
+    - group: infrastructure.cluster.x-k8s.io
+      kind: HetznerCluster
+      jsonPointers:
+        - /spec/controlPlaneEndpoint/host
+    
+    - group: infrastructure.cluster.x-k8s.io
+      kind: HetznerBareMetalHost
+      jsonPointers:
+        - /metadata/annotations/capi.syself.com~1wipe-disk

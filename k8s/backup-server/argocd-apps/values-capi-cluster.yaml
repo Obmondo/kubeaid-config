@@ -1,0 +1,78 @@
+global:
+  clusterName: backup-server
+  kubernetes:
+    version: v1.34.2
+  kubeaid:
+    repo: https://github.com/Obmondo/KubeAid
+  kubeaidConfig:
+    repo: https://github.com/asifulhaque786/kubeaid-config
+  additionalUsers: 
+    []
+provider:
+  hetzner: true
+
+hetzner:
+  mode: bare-metal
+  bareMetal:
+    wipeDisks: false
+    sshKeyPair:
+      name: cluster
+    installImage:
+      imagePath: /root/.oldroot/nfs/images/Ubuntu-2404-noble-amd64-base.tar.gz
+    diskLayoutSetupCommands: |
+      
+      apt-get update -y
+      apt install zfsutils-linux -y
+      
+      echo ",,83" | sfdisk -N 4 /dev/sda --force
+      partprobe /dev/sda
+      
+      echo ",,83" | sfdisk -N 4 /dev/sdb --force
+      partprobe /dev/sdb
+      
+      if zpool import -f primary >/dev/null 2>&1; then
+        echo "Imported existing primary ZPool"
+      else
+        zpool create primary mirror /dev/sda4 /dev/sdb4 mirror /dev/sdc /dev/sdd
+      
+        zfs create -V 100G primary/containerd
+        udevadm settle
+        mkfs.ext4 /dev/zvol/primary/containerd
+      
+        zfs create -V 50G primary/pod-ephemeral-volumes
+        udevadm settle
+        mkfs.ext4 /dev/zvol/primary/pod-ephemeral-volumes
+      fi
+      
+      mkdir -p /var/lib/containerd
+      echo "/dev/zvol/primary/containerd /var/lib/containerd ext4 defaults,nofail 0 0" \
+      | tee -a /etc/fstab
+      mount /var/lib/containerd
+      
+      mkdir -p /var/lib/kubelet/pods
+      echo "/dev/zvol/primary/pod-ephemeral-volumes /var/lib/kubelet/pods ext4 defaults,nofail 0 0" \
+      | tee -a /etc/fstab
+      mount /var/lib/kubelet/pods
+      
+
+  controlPlane:
+    regions: 
+      - fsn1
+      - nbg1
+      - hel1
+
+    
+    bareMetal: 
+      endpoint:
+        isFailoverIP: true
+        host: 195.201.109.239
+      bareMetalHosts:
+        - serverID: "2845449"
+          wwns: []
+      diskLayoutSetupCommands: ""
+
+    
+
+  nodeGroups: 
+    hcloud: []
+    bareMetal: []
