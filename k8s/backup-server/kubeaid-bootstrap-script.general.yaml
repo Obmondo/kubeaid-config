@@ -131,10 +131,10 @@ cloud:
           #
           # Otherwise, to have multiple control-plane nodes, you need to use a Hetzner Bare Metal
           # Failover IP.
-          host: "195.201.109.239"	
+          host: "195.201.109.239"
 
           # Whether you're using a Hetzner Bare-Metal Failover IP or not.
-          isFailoverIP: true
+          isFailoverIP: false
 
         bareMetalHosts:
           - serverID: 2845449

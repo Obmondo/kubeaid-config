@@ -64,7 +64,7 @@ hetzner:
     
     bareMetal: 
       endpoint:
-        isFailoverIP: true
+        isFailoverIP: false
         host: 195.201.109.239
       bareMetalHosts:
         - serverID: "2845449"
