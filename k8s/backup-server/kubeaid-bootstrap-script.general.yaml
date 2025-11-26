@@ -140,7 +140,7 @@ cloud:
           - serverID: 2845449
             wwn:
               - "0x5000c500b39edb52"
-              - "0x5000c500b39f5206"
+              - "0x5000c500b3a48a7f"
 
           # taints: []
 
