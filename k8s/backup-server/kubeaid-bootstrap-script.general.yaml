@@ -110,9 +110,6 @@ cloud:
         | tee -a /etc/fstab
         mount /var/lib/kubelet/pods
 
-
-
-
     controlPlane:
       # Regions you're using in the eu-central Hetzner network zone.
       #
@@ -138,7 +135,7 @@ cloud:
 
         bareMetalHosts:
           - serverID: 2845449
-            wwn:
+            wwns:
               - "0x5000c500b39edb52"
               - "0x5000c500b3a48a7f"
 

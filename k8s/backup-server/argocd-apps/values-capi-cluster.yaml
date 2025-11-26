@@ -68,7 +68,9 @@ hetzner:
         host: 195.201.109.239
       bareMetalHosts:
         - serverID: "2845449"
-          wwns: []
+          wwns:
+            - "0x5000c500b39edb52"
+            - "0x5000c500b3a48a7f"
       diskLayoutSetupCommands: ""
 
     
