@@ -24,24 +24,28 @@ hetzner:
       apt-get update -y
       apt install zfsutils-linux -y
       
-      echo ",,83" | sfdisk -N 4 /dev/sda --force
+      sgdisk -n 4:0:0 -t 4:fd00 -c 4:"zpool" /dev/sda
       partprobe /dev/sda
-      
-      echo ",,83" | sfdisk -N 4 /dev/sdb --force
+      sgdisk -n 4:0:0 -t 4:fd00 -c 4:"zpool" /dev/sdb
       partprobe /dev/sdb
+      udevadm settle
       
       if zpool import -f primary >/dev/null 2>&1; then
         echo "Imported existing primary ZPool"
       else
         zpool create primary mirror /dev/sda4 /dev/sdb4 mirror /dev/sdc /dev/sdd
       
-        zfs create -V 100G primary/containerd
+        zfs create -s -V 100G primary/containerd
         udevadm settle
         mkfs.ext4 /dev/zvol/primary/containerd
       
-        zfs create -V 50G primary/pod-ephemeral-volumes
+        zfs create -s -V 50G primary/pod-ephemeral-volumes
         udevadm settle
         mkfs.ext4 /dev/zvol/primary/pod-ephemeral-volumes
+      
+        zfs create -s -V 50G primary/pod-logs
+        udevadm settle
+        mkfs.ext4 /dev/zvol/primary/pod-logs
       fi
       
       mkdir -p /var/lib/containerd
@@ -53,6 +57,15 @@ hetzner:
       echo "/dev/zvol/primary/pod-ephemeral-volumes /var/lib/kubelet/pods ext4 defaults,nofail 0 0" \
       | tee -a /etc/fstab
       mount /var/lib/kubelet/pods
+      
+      mkdir -p /var/log/pods
+      echo "/dev/zvol/primary/pod-logs /var/log/pods ext4 defaults,nofail 0 0" | tee -a /etc/fstab
+      mount /dev/zvol/primary/pod-logs /var/log/pods
+      
+      # Enable weekly ZPool trimming for the ZPool.
+      # So unused storage space will be reclaimed back, from the ZVolumes into the ZPool.
+      # REFER : https://openzfs.github.io/openzfs-docs/man/master/8/zpool-trim.8.html.
+      systemctl enable zfs-trim-weekly@rpool.timer --now
       
 
   controlPlane:
