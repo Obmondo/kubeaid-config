@@ -64,7 +64,7 @@ cloud:
     bareMetal:
       # If true, then before provisioning each machine, ClusterAPI Provider Hetzner (CAPH) will
       # wipe the disks.
-      wipeDisks: True
+      wipeDisks: False
 
       # Details about the Hetzner Bare Metal SSH KeyPair, that you created to meet the
       # prerequisites.

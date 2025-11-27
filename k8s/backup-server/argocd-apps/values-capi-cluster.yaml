@@ -14,7 +14,7 @@ provider:
 hetzner:
   mode: bare-metal
   bareMetal:
-    wipeDisks: true
+    wipeDisks: false
     sshKeyPair:
       name: cluster
     installImage:
