@@ -24,6 +24,9 @@ hetzner:
       apt-get update -y
       apt install zfsutils-linux -y
       
+      echo -e "d\n4\nw" | fdisk /dev/sdb
+      echo -e "d\n4\nw" | fdisk /dev/sda
+      
       sgdisk -n 4:0:0 -t 4:fd00 -c 4:"zpool" /dev/sda
       partprobe /dev/sda
       sgdisk -n 4:0:0 -t 4:fd00 -c 4:"zpool" /dev/sdb
