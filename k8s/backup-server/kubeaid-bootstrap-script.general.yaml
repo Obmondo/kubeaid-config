@@ -64,7 +64,7 @@ cloud:
     bareMetal:
       # If true, then before provisioning each machine, ClusterAPI Provider Hetzner (CAPH) will
       # wipe the disks.
-      wipeDisks: False
+      wipeDisks: True
 
       # Details about the Hetzner Bare Metal SSH KeyPair, that you created to meet the
       # prerequisites.
@@ -110,12 +110,12 @@ cloud:
         mkdir -p /var/lib/containerd
         echo "/dev/zvol/primary/containerd /var/lib/containerd ext4 defaults,nofail 0 0" \
         | tee -a /etc/fstab
-        mount /var/lib/containerd
+        mount /dev/zvol/primary/containerd /var/lib/containerd
 
         mkdir -p /var/lib/kubelet/pods
         echo "/dev/zvol/primary/pod-ephemeral-volumes /var/lib/kubelet/pods ext4 defaults,nofail 0 0" \
         | tee -a /etc/fstab
-        mount /var/lib/kubelet/pods
+        mount /dev/zvol/primary/pod-ephemeral-volumes /var/lib/kubelet/pods
 
         mkdir -p /var/log/pods
         echo "/dev/zvol/primary/pod-logs /var/log/pods ext4 defaults,nofail 0 0" | tee -a /etc/fstab

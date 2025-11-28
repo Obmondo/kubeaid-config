@@ -14,7 +14,7 @@ provider:
 hetzner:
   mode: bare-metal
   bareMetal:
-    wipeDisks: false
+    wipeDisks: true
     sshKeyPair:
       name: cluster
     installImage:
@@ -54,12 +54,12 @@ hetzner:
       mkdir -p /var/lib/containerd
       echo "/dev/zvol/primary/containerd /var/lib/containerd ext4 defaults,nofail 0 0" \
       | tee -a /etc/fstab
-      mount /var/lib/containerd
+      mount /dev/zvol/primary/containerd /var/lib/containerd
       
       mkdir -p /var/lib/kubelet/pods
       echo "/dev/zvol/primary/pod-ephemeral-volumes /var/lib/kubelet/pods ext4 defaults,nofail 0 0" \
       | tee -a /etc/fstab
-      mount /var/lib/kubelet/pods
+      mount /dev/zvol/primary/pod-ephemeral-volumes /var/lib/kubelet/pods
       
       mkdir -p /var/log/pods
       echo "/dev/zvol/primary/pod-logs /var/log/pods ext4 defaults,nofail 0 0" | tee -a /etc/fstab
