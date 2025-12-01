@@ -1,5 +1,8 @@
 zfs-localpv:
   zfsNode:
+    nodeSelector:
+      disk: hdd
+    tolerations: []
     securityContext: {}
     labels: {}
     priorityClass:
@@ -8,6 +11,9 @@ zfs-localpv:
   # zfsController contains the configurables for
   # the zfs controller statefulset
   zfsController:
+    nodeSelector:
+      disk: hdd
+    tolerations: []
     securityContext: {}
     priorityClass:
       create: true
