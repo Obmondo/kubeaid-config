@@ -24,7 +24,7 @@ seaweedfs:
 
     ingress:
       enabled: true
-      className: "nginx"
+      className: "traefik"
       # host: false for "*" hostname
       host: "seaweedfs.cluster.local"
       path: "/"
