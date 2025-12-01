@@ -92,7 +92,7 @@ cloud:
         if zpool import -f primary >/dev/null 2>&1; then
           echo "Imported existing primary ZPool"
         else
-          zpool create primary mirror /dev/sda4 /dev/sdb4 mirror /dev/sdc /dev/sdd
+          zpool create primary mirror /dev/sda4 /dev/sdb4 mirror /dev/sdc /dev/sdd -f
 
           zfs create -s -V 100G primary/containerd
           udevadm settle
