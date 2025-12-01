@@ -15,7 +15,7 @@ spec:
   sources:
     - repoURL: https://github.com/Obmondo/KubeAid
       path: argocd-helm-charts/seaweedfs
-      targetRevision: 13.0.0
+      targetRevision: HEAD
       helm:
         valueFiles:
           - $values/k8s/backup-server/argocd-apps/values-seaweedfs.yaml
