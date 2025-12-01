@@ -13,29 +13,6 @@ traefik:
     default:
       defaultCertificate:
         secretName: kbm-obmondo-com
-  tlsOptions:
-    api-puppet-agent-tls-auth:
-      maxVersion: VersionTLS13
-      minVersion: VersionTLS12
-      clientAuth:
-        clientAuthType: VerifyClientCertIfGiven
-        secretNames:
-          - puppetca-cert
-          - enableit-puppetca-cert
-          - 7ejidqmfi9-puppetca-cert
-          - abbnoa6nlk-puppetca-cert
-          - niwyocdmk2-puppetca-cert
-    prometheus-puppet-agent-tls-auth:
-      maxVersion: VersionTLS13
-      minVersion: VersionTLS12
-      clientAuth:
-        clientAuthType: RequireAndVerifyClientCert
-        secretNames:
-          - puppetca-cert
-          - enableit-puppetca-cert
-          - 7ejidqmfi9-puppetca-cert
-          - abbnoa6nlk-puppetca-cert
-          - niwyocdmk2-puppetca-cert
   service:
     type: NodePort
     externalIPs:
@@ -61,23 +38,6 @@ traefik:
       publishedService:
         enabled: true
 
-middleware:
-  jwt:
-    enabled: true
-    headers:
-      X-Subject: sub
-      X-Obmondo-Customerid:
-        data: customer/id
-    public_key: |
-      -----BEGIN PUBLIC KEY-----
-      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqOrZ8sVK6HuTImOpGjUp
-      fByvQoPmGYY8MkLhHXpVc3Avt9svBh+kZkF8dVHD7ufeSL1KFA6mTUJQutQq0Det
-      xu4JzaZl1T5/aQq2sH8B4L03amwlpwKjnBPc+YMrlmOXhYstWFFyDevPPuimgGbf
-      Rr2Kt7QMI53ZXlEj1HTBNRuNv79Cjl3holDGTsrqCz8kPFd0dc/pLZzDvqYDPZ0X
-      UB6+BQUtHeXvxnMiJ/IrwQWDVbxcPr2PbyIClJj1FxnZvqA2CuXWz0trqog72cYV
-      EQn+uJRX/KpfHWHIdIJQEe2dm4a9pc3/Uue/eFS5Bzb3fYyUgNrG+JN0Ki5ATFTy
-      DwIDAQAB
-      -----END PUBLIC KEY-----
 
 wildcardCertificates:
   enabled: true

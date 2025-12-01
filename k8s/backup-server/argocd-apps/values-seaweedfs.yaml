@@ -21,7 +21,6 @@ seaweedfs:
   s3:
     enabled: true
     enableAuth: true
-
     ingress:
       enabled: true
       className: "traefik"
