@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  project: default
+  sources:
+    - repoURL: https://github.com/EnableIT/KubeAid.git
+      path: argocd-helm-charts/traefik
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $values/k8s/backup-server/argocd-apps/values-traefik.yaml
+    - repoURL: https://github.com/asifulhaque786/kubeaid-config
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true

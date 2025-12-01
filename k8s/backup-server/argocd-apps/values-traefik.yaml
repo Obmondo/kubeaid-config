@@ -1,0 +1,86 @@
+traefik:
+  deployment:
+    kind: DaemonSet
+  ports:
+    websecure:
+      hostPort: 443
+    web:
+      hostPort: 80
+  logs:
+    general:
+      level: INFO
+  tlsStore:
+    default:
+      defaultCertificate:
+        secretName: kbm-obmondo-com
+  tlsOptions:
+    api-puppet-agent-tls-auth:
+      maxVersion: VersionTLS13
+      minVersion: VersionTLS12
+      clientAuth:
+        clientAuthType: VerifyClientCertIfGiven
+        secretNames:
+          - puppetca-cert
+          - enableit-puppetca-cert
+          - 7ejidqmfi9-puppetca-cert
+          - abbnoa6nlk-puppetca-cert
+          - niwyocdmk2-puppetca-cert
+    prometheus-puppet-agent-tls-auth:
+      maxVersion: VersionTLS13
+      minVersion: VersionTLS12
+      clientAuth:
+        clientAuthType: RequireAndVerifyClientCert
+        secretNames:
+          - puppetca-cert
+          - enableit-puppetca-cert
+          - 7ejidqmfi9-puppetca-cert
+          - abbnoa6nlk-puppetca-cert
+          - niwyocdmk2-puppetca-cert
+  service:
+    type: NodePort
+    externalIPs:
+      - 95.216.30.44
+  experimental:
+    plugins:
+      jwt:
+        moduleName: github.com/Obmondo/traefik-jwt-plugin
+        version: v0.7.1
+      headerauthentication:
+        moduleName: github.com/omar-shrbajy-arive/headerauthentication
+        version: v1.0.3
+  additionalArguments:
+    - '--providers.kubernetesingress.ingressclass=traefik-cert-manager'
+    - '--entrypoints.websecure.http.tls'
+    - '--metrics.prometheus=true'
+  # https://github.com/argoproj/argo-cd/issues/1704#issuecomment-904741817
+  providers:
+    kubernetesCRD:
+      enabled: true
+      allowCrossNamespace: true
+    kubernetesIngress:
+      publishedService:
+        enabled: true
+
+middleware:
+  jwt:
+    enabled: true
+    headers:
+      X-Subject: sub
+      X-Obmondo-Customerid:
+        data: customer/id
+    public_key: |
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqOrZ8sVK6HuTImOpGjUp
+      fByvQoPmGYY8MkLhHXpVc3Avt9svBh+kZkF8dVHD7ufeSL1KFA6mTUJQutQq0Det
+      xu4JzaZl1T5/aQq2sH8B4L03amwlpwKjnBPc+YMrlmOXhYstWFFyDevPPuimgGbf
+      Rr2Kt7QMI53ZXlEj1HTBNRuNv79Cjl3holDGTsrqCz8kPFd0dc/pLZzDvqYDPZ0X
+      UB6+BQUtHeXvxnMiJ/IrwQWDVbxcPr2PbyIClJj1FxnZvqA2CuXWz0trqog72cYV
+      EQn+uJRX/KpfHWHIdIJQEe2dm4a9pc3/Uue/eFS5Bzb3fYyUgNrG+JN0Ki5ATFTy
+      DwIDAQAB
+      -----END PUBLIC KEY-----
+
+wildcardCertificates:
+  enabled: true
+  issuer: letsencrypt
+  domains:
+    - "*.kbm.obmondo.com"
