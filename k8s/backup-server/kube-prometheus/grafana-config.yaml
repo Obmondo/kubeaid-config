@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/part-of: kube-prometheus
+    app.kubernetes.io/version: 12.1.0
+  name: grafana-config
+  namespace: monitoring
+stringData:
+  grafana.ini: |
+    [analytics]
+    check_for_updates = false
+    [auth]
+    disable_login_form = false
+    disable_signout_menu = false
+    [date_formats]
+    default_timezone = UTC
+    [server]
+    root_url = https://grafana.kbm.obmondo.com
+type: Opaque
