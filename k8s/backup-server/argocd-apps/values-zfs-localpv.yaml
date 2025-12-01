@@ -8,8 +8,6 @@ zfs-localpv:
   # zfsController contains the configurables for
   # the zfs controller statefulset
   zfsController:
-    nodeSelector:
-      disk: hdd
     tolerations: []
     securityContext: {}
     priorityClass:
