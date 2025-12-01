@@ -1,7 +1,4 @@
 zfs-localpv:
-  zfsNode:
-    nodeSelector:
-      disk: hdd
     tolerations: []
     securityContext: {}
     labels: {}
