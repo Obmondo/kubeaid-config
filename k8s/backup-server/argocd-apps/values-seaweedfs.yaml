@@ -9,6 +9,7 @@ seaweedfs:
       size: "1Gi"
       storageClass: "zfs-localpv"
   filer:
+    encryptVolumeData: true
     data:
       type: "persistentVolumeClaim"
       size: "100Gi"
@@ -18,4 +19,16 @@ seaweedfs:
       size: "1Gi"
       storageClass: "zfs-localpv"
   s3:
+    enabled: true
     enableAuth: true
+
+    ingress:
+      enabled: true
+      className: "nginx"
+      # host: false for "*" hostname
+      host: "seaweedfs.cluster.local"
+      path: "/"
+      pathType: Prefix
+      # additional ingress annotations for the s3 endpoint
+      annotations: {}
+      tls: []
