@@ -18,9 +18,9 @@ spec:
       targetRevision: 13.0.0
       helm:
         valueFiles:
-          - $values/k8s/singlehost-k3d-1/argocd-apps/values-seaweedfs.yaml
+          - $values/k8s/backup-server/argocd-apps/values-seaweedfs.yaml
     - repoURL: https://github.com/asifulhaque786/kubeaid-config
-      targetRevision: HEAD
+      targetRevision: test
       ref: values
   syncPolicy:
     syncOptions:
