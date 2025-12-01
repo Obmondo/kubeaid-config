@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zfs-localpv
+  namespace: argocd
+spec:
+  destination:
+    namespace: zfs-localpv
+    server: 'https://kubernetes.default.svc'
+  sources:
+    - repoURL: https://gitea.obmondo.com/EnableIT/KubeAid.git
+      path: argocd-helm-charts/zfs-localpv
+      targetRevision: HEAD
+      helm:
+        valueFiles:
+          - $values/k8s/kbm.obmondo.com/argocd-apps/values-zfs-localpv.yaml
+    - repoURL: https://gitea.obmondo.com/asifulhaque786/kubeaid-config-enableit.git
+      targetRevision: test
+      ref: values
+  project: default
+  syncPolicy:
+    automated: null
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true

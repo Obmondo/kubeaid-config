@@ -1,0 +1,50 @@
+zfs-localpv:
+  zfsNode:
+    nodeSelector:
+      disk: hdd
+    tolerations: []
+    securityContext: {}
+    labels: {}
+    priorityClass:
+      create: true
+      name: zfs-csi-node-critical
+  # zfsController contains the configurables for
+  # the zfs controller statefulset
+  zfsController:
+    nodeSelector:
+      disk: hdd
+    tolerations: []
+    securityContext: {}
+    priorityClass:
+      create: true
+      name: zfs-csi-controller-critical
+  zfsExporter:
+    enable: true
+    serviceMonitor:
+      enabled: true
+      path: /metrics
+      interval: 10s
+    name: zfs-exporter
+    port: 9134
+    image:
+      # Make sure that registry name end with a '/'.
+      # For example : registry.k8s.io/ is a correct value here and quay.io is incorrect
+      registry: harbor.obmondo.com/
+      repository: obmondo/zfs_exporter
+      pullPolicy: IfNotPresent
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: v2.3.4_1   # Need to replace
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 50m
+        memory: 100Mi
+
+storageClass:
+  enabled: true
+  poolName: primary
+  zfs-localpv:
+    poolName: primary
+    dedup: "off"
