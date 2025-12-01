@@ -49,7 +49,6 @@ spec:
       - argocd
       - cert-manager
       - monitoring
-      - obmondo
       - sealed-secrets
       - system
       - traefik

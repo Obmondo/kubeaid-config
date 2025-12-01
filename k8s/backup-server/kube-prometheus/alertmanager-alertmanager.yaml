@@ -27,9 +27,7 @@ spec:
     requests:
       cpu: 10m
       memory: 20Mi
-  secrets:
-  - obmondo-clientcert
-  - alertmanager-main
+  secrets: []
   securityContext:
     fsGroup: 2000
     runAsNonRoot: true

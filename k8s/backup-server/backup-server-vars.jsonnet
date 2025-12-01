@@ -2,8 +2,8 @@
   platform: 'kubeadm',
   extra_configs: true,
   'blackbox-exporter': true,
-  connect_obmondo: true,
-  connect_keda: true,
+  connect_obmondo: false,
+  connect_keda: false,
   grafana_keycloak_enable: false,
   grafana_root_url: 'https://grafana.kbm.obmondo.com',
   grafana_keycloak_url: 'https://keycloak.obmondo.com',
@@ -38,6 +38,7 @@
     'kubernetes.io/ingress.class': 'traefik-cert-manager',
   },
   prometheus_scrape_namespaces: [
+    'system'
   ],
   prometheus+: {
     storage: {
