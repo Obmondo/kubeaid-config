@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: "13.0.0"
+    kubeaid.io/managed-by: "kubeaid"
+    kubeaid.io/priority: "default"
+  name: seaweedfs
+  namespace: argocd
+spec:
+  destination:
+    namespace: seaweedfs
+    server: https://kubernetes.default.svc
+  project: kubeaid
+  sources:
+    - repoURL: https://github.com/Obmondo/KubeAid
+      path: argocd-helm-charts/seaweedfs
+      targetRevision: 13.0.0
+      helm:
+        valueFiles:
+          - $values/k8s/singlehost-k3d-1/argocd-apps/values-seaweedfs.yaml
+    - repoURL: https://github.com/asifulhaque786/kubeaid-config
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true

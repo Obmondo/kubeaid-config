@@ -1,0 +1,21 @@
+seaweedfs:
+  master:
+    data:
+      type: "persistentVolumeClaim"
+      size: "10Gi"
+      storageClass: "zfs-localpv"
+    logs:
+      type: "persistentVolumeClaim"
+      size: "1Gi"
+      storageClass: "zfs-localpv"
+  filer:
+    data:
+      type: "persistentVolumeClaim"
+      size: "100Gi"
+      storageClass: "zfs-localpv"
+    logs:
+      type: "persistentVolumeClaim"
+      size: "1Gi"
+      storageClass: "zfs-localpv"
+  s3:
+    enableAuth: true
