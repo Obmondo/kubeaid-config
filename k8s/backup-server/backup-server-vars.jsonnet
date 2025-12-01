@@ -42,7 +42,7 @@
   prometheus+: {
     storage: {
       size: '80Gi',
-      classname: 'rook-ceph-block',
+      classname: 'zfs-localpv',
     },
     retention: '15d',
   },

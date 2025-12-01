@@ -73,5 +73,5 @@ spec:
         resources:
           requests:
             storage: 80Gi
-        storageClassName: rook-ceph-block
+        storageClassName: zfs-localpv
   version: 3.5.0
