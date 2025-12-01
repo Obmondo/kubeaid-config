@@ -1,6 +1,5 @@
 zfs-localpv:
   zfsNode:
-    tolerations: []
     securityContext: {}
     labels: {}
     priorityClass:
