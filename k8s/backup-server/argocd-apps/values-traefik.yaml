@@ -13,6 +13,10 @@ traefik:
     default:
       defaultCertificate:
         secretName: kbm-obmondo-com
+  service:
+    type: NodePort
+    externalIPs:
+      - 95.216.30.44
   experimental:
     plugins:
       jwt:
