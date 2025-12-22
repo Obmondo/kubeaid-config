@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: "21.0.0"
+    kubeaid.io/managed-by: "kubeaid"
+    kubeaid.io/priority: "critical"
+  name: mariadb-operator
+  namespace: argocd
+spec:
+  destination:
+    namespace: mariadb-system
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://helm.mariadb.com/mariadb-operator
+    targetRevision: 0.33.0
+    chart: mariadb-operator
+    helm:
+      values: |
+        metrics:
+          enabled: true
+          serviceMonitor:
+            enabled: true
+  project: kubeaid
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

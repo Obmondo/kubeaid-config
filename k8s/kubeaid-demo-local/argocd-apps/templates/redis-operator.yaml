@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: "21.0.0"
+    kubeaid.io/managed-by: "kubeaid"
+    kubeaid.io/priority: "critical"
+  name: redis-operator
+  namespace: argocd
+spec:
+  destination:
+    namespace: redis-operator
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://ot-container-kit.github.io/helm-charts
+    targetRevision: 0.18.7
+    chart: redis-operator
+    helm:
+      values: |
+        redisOperator:
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 128Mi
+  project: kubeaid
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

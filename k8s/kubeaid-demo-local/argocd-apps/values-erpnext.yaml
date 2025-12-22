@@ -7,12 +7,12 @@ erpnext:
   dbRootPassword: erpnext-secret-password
   dbRds: false
 
-  # Persistence using hostpath storage class from localpv-provisioner
+  # Persistence using local-path storage class from k3d
   persistence:
     worker:
       enabled: true
       size: 8Gi
-      storageClass: "openebs-hostpath"
+      storageClass: "local-path"
       accessModes:
         - ReadWriteOnce
 
@@ -132,7 +132,7 @@ mariadb:
     generate: true
   storage:
     size: 10Gi
-    storageClassName: openebs-hostpath
+    storageClassName: local-path
     resizeInUseVolumes: true
     waitForVolumeResize: true
   image: "mariadb:11.6.2-noble"
