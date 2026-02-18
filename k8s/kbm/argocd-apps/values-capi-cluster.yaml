@@ -66,21 +66,19 @@ hetzner:
           echo "Imported existing primary ZFS pool"
         else
           # Create the ZFS pool with RAIDZ-1 enabled.
-            zpool create primary raidz1 \
-              /dev/nvme0n1p5 \ 
-              /dev/nvme1n1p5
+            zpool create primary raidz1 \/dev/nvme0n1p5 \/dev/nvme1n1p5
 
           # Create the filesystem for ContainerD, to store container images.
-          zfs create pool/containerd
-          zfs set mountpoint=/var/lib/containerd pool/containerd
+          zfs create primary/containerd
+          zfs set mountpoint=/var/lib/containerd primary/containerd
 
           # Create the filesystem where pod logs will be stored.
-          zfs create pool/pod-logs
-          zfs set mountpoint=/var/log/pods pool/pod-logs
+          zfs create primary/pod-logs
+          zfs set mountpoint=/var/log/pods primary/pod-logs
 
           # Create the filesystem where pod ephemeral volumes will be stored.
-          zfs create pool/pod-ephemeral-volumes
-          zfs set mountpoint=/var/lib/kubelet/pods pool/pod-ephemeral-volumes
+          zfs create primary/pod-ephemeral-volumes
+          zfs set mountpoint=/var/lib/kubelet/pods primary/pod-ephemeral-volumes
 
           # Enable weekly ZPool trimming for the ZPool.
           # So unused storage space will be reclaimed back, into the ZFS pool.
@@ -96,11 +94,11 @@ hetzner:
 
     bareMetal:
       - name: ceph
-        labels: 
-        node-role.kubernetes.io/ceph: ""
-        node.cluster.x-k8s.io/nodegroup: ceph
-        taints: 
-        []
+        labels:
+          node-role.kubernetes.io/ceph: ""
+          node.cluster.x-k8s.io/nodegroup: ceph
+        taints:
+          []
         bareMetalHosts: 
         - serverID: "1414813"
         - serverID: "1454837"
@@ -136,16 +134,16 @@ hetzner:
               /dev/sdb5
 
             # Create the filesystem for ContainerD, to store container images.
-            zfs create pool/containerd
-            zfs set mountpoint=/var/lib/containerd pool/containerd
+            zfs create primary/containerd
+            zfs set mountpoint=/var/lib/containerd primary/containerd
 
             # Create the filesystem where pod logs will be stored.
-            zfs create pool/pod-logs
-            zfs set mountpoint=/var/log/pods pool/pod-logs
+            zfs create primary/pod-logs
+            zfs set mountpoint=/var/log/pods primary/pod-logs
 
             # Create the filesystem where pod ephemeral volumes will be stored.
-            zfs create pool/pod-ephemeral-volumes
-            zfs set mountpoint=/var/lib/kubelet/pods pool/pod-ephemeral-volumes
+            zfs create primary/pod-ephemeral-volumes
+            zfs set mountpoint=/var/lib/kubelet/pods primary/pod-ephemeral-volumes
 
             # Enable weekly ZPool trimming for the ZPool.
             # So unused storage space will be reclaimed back, into the ZFS pool.
