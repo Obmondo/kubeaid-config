@@ -33,7 +33,7 @@ forkURLs:
 cluster:
   type: workload
   name: shubham-cluster
-  k8sVersion: v1.34.0
+  k8sVersion: v1.33.0
   # Whether you would like to enable Kubernetes Audit Logging out of the box.
   # Suitable Kubernetes API configurations will be done for you automatically. And they can be
   # changed using the apiSever struct field.
