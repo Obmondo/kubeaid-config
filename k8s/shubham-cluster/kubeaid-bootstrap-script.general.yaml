@@ -1,0 +1,71 @@
+# Image pull policy for the KubeAid Core container image.
+# Valid values: Always, IfNotPresent, Never.
+imagePullPolicy: IfNotPresent
+# Git server specific details.
+git:
+  caBundlePath:
+  # SSH username.
+  sshUsername: git
+  # Or, make KubeAid CLI use the SSH Agent.
+  # So, you (the one who runs KubeAid CLI) can use your YubiKey.
+  useSSHAgent:
+  privateKeyFilePath: /home/shubham/.ssh/id_rsa
+# KubeAid and KubeAid Config repository specific details.
+# The KubeAid and KubeAid Config repositories must be hosted in the same Git server.
+forkURLs:
+  # KubeAid repository specific details.
+  kubeaid:
+    url: git@github.com:Obmondo/KubeAid.git
+    version:
+  # KubeAid Config repository specific details.
+  kubeaidConfig:
+    # KubeAid Config repository SSH URL.
+    url: git@github.com:Obmondo/KubeAid-Config.git
+    # Name of the directory inside your KubeAid Config repository's k8s folder, where the KubeAid
+    # Config files for this cluster will be contained.
+    #
+    # When not specified, the directory name will default to the cluster name.
+    #
+    # So, suppose your cluster name is 'staging'. Then, the directory name will default to
+    # 'staging'. Or you can customize it to something like 'staging.qa'.
+    directory:
+# Kubernetes specific details.
+cluster:
+  type: workload
+  name: shubham-cluster
+  k8sVersion: v1.34.0
+  # Whether you would like to enable Kubernetes Audit Logging out of the box.
+  # Suitable Kubernetes API configurations will be done for you automatically. And they can be
+  # changed using the apiSever struct field.
+  enableAuditLogging: True
+  # Configuration options for the Kubernetes API server.
+  apiServer:
+    extraArgs: {}
+    extraVolumes: []
+    files: []
+  # Other than the root user, addtional users that you would like to be created in each node.
+  # NOTE : Currently, we can't register additional SSH key-pairs against the root user.
+  additionalUsers:
+  # ArgoCD specific details.
+  argoCD:
+    deployKeys:
+      kubeaidConfig:
+        privateKeyFilePath: /home/shubham/.ssh/id_rsa
+      kubeaid:
+        privateKeyFilePath: /home/shubham/.ssh/id_rsa
+# Cloud provider specific details.
+cloud:
+  local: {}
+  disasterRecovery:
+    veleroBackupsBucketName:
+    sealedSecretsBackupsBucketName:
+# Kube Prometheus installation specific details. Defaults to Latest
+# Fill this only if you want a specific version
+kubePrometheus:
+  version: v0.17.0
+  grafanaURL:
+# Obmondo customer specific details.
+obmondo:
+  customerID:
+  monitoring:
+
