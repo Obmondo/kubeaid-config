@@ -1,0 +1,44 @@
+global:
+  clusterName: vpn-test-com-3
+  kubernetes:
+    version: v1.32.0
+  kubeaid:
+    repo: https://github.com/Obmondo/KubeAid
+  kubeaidConfig:
+    repo: git@github.com:shubham-cmyk/kubeaid-config.git
+  additionalUsers: 
+    []
+provider:
+  hetzner: true
+
+hetzner:
+  mode: hcloud
+
+  sshKeyPair:
+    name: private
+  hcloud:
+    sshKeyPairName: private
+
+    zone: eu-central
+    imageName: ubuntu-24.04
+    hetznerNetwork:
+      cidr: 10.0.0.0/16
+      hcloudServersSubnetCIDR: 10.0.0.0/24
+
+  controlPlane:
+    regions: 
+      - hel1
+
+    
+
+    
+    hcloud: 
+      machineType: cax21
+      replicas: 1
+      loadBalancer:
+        enabled: true
+        region: hel1
+
+  nodeGroups: 
+    hcloud: []
+    bareMetal: []
