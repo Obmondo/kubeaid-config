@@ -1,0 +1,55 @@
+git:
+  sshUsername: git
+  useSSHAgent: true
+
+forkURLs:
+  kubeaid:
+    url: git@github.com:Obmondo/KubeAid.git
+    version: 25.0.0
+  kubeaidConfig:
+    url: git@github.com:shubham-cmyk/kubeaid-config.git
+    directory: 
+
+cluster:
+  type: workload
+  name: hcloud-test103
+  k8sVersion: v1.34.6
+  enableAuditLogging: false
+  apiServer:
+    extraArgs: {}
+    extraVolumes: []
+    files: []
+  argoCD:
+    deployKeys:
+      kubeaid:
+        privateKeyFilePath: /home/shubham/.ssh/id_rsa
+      kubeaidConfig:
+        privateKeyFilePath: /home/shubham/.ssh/id_rsa
+
+kubePrometheus:
+  version: v0.17.0
+
+cloud:
+  hetzner:
+    mode: hcloud
+    sshKeyPair:
+      name: private
+      privateKeyFilePath: /home/shubham/enableIT/kubeaid-cli/private.key
+    hcloud:
+      zone: hel1
+      imageName: ubuntu-24.04
+      hetznerNetwork:
+        cidr: "10.0.0.0/16"
+        hcloudServersSubnetCIDR: "10.0.0.0/24"
+    controlPlane:
+      hcloud:
+        machineType: cax11
+        replicas: 1
+        loadBalancer:
+          enabled: true
+          region: hel1
+      regions:
+        - hel1
+    nodeGroups:
+      hcloud: []
+

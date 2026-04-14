@@ -1,0 +1,44 @@
+global:
+  clusterName: test-cluster102
+  kubernetes:
+    version: v1.34.6
+  kubeaid:
+    repo: git@github.com:Obmondo/KubeAid.git
+  kubeaidConfig:
+    repo: git@github.com:shubham-cmyk/kubeaid-config.git
+  additionalUsers: 
+    []
+provider:
+  hetzner: true
+
+hetzner:
+  mode: hcloud
+
+  sshKeyPair:
+    name: private
+  hcloud:
+    sshKeyPairName: private
+
+    zone: hel1
+    imageName: ubuntu-24.04
+    hetznerNetwork:
+      cidr: 10.0.0.0/16
+      hcloudServersSubnetCIDR: 10.0.0.0/24
+
+  controlPlane:
+    regions: 
+      - hel1
+
+    
+
+    
+    hcloud: 
+      machineType: cax11
+      replicas: 1
+      loadBalancer:
+        enabled: true
+        region: hel1
+
+  nodeGroups: 
+    hcloud: []
+    bareMetal: []
