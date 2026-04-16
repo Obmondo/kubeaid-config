@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: 26.1.0
+    kubeaid.io/managed-by: kubeaid
+    kubeaid.io/sync-order: "50"
+  name: kube-prometheus
+  namespace: argocd
+  finalizers:
+    - argocd.argoproj.io/resources-finalizer
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  project: kubeaid
+  source:
+    path: k8s/hcloud-vpn101/kube-prometheus
+    repoURL: git@github.com:Obmondo/kubeaid-config.git
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true
+      - ServerSideApply=true

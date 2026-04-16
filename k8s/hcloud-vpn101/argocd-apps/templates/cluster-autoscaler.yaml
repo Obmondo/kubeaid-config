@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    kubeaid.io/version: 26.1.0
+    kubeaid.io/managed-by: kubeaid
+    kubeaid.io/sync-order: "10"
+  name: cluster-autoscaler
+  namespace: argocd
+spec:
+  destination:
+    namespace: cluster-autoscaler
+    server: https://kubernetes.default.svc
+  sources:
+    - repoURL: git@github.com:Obmondo/KubeAid.git
+      path: argocd-helm-charts/cluster-autoscaler
+      targetRevision: 26.1.0
+      helm:
+        valueFiles:
+          - $values/k8s/hcloud-vpn101/argocd-apps/values-cluster-autoscaler.yaml
+    - repoURL: git@github.com:Obmondo/kubeaid-config.git
+      targetRevision: HEAD
+      ref: values
+  project: kubeaid
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
