@@ -1,0 +1,35 @@
+git:
+  sshUsername: git
+  useSSHAgent: true
+  privateKeyFilePath: /home/param/.ssh/id_ed25519
+
+forkURLs:
+  kubeaid:
+    url: git@github.com:Obmondo/KubeAid.git
+    version: v1.0.2
+  kubeaidConfig:
+    url: git@github.com:param20h/kubeaid-config.git
+    directory: my-local-cluster
+
+cluster:
+  type: workload
+  name: my-local-cluster
+  k8sVersion: v1.30.0
+  enableAuditLogging: false
+  apiServer:
+    extraArgs: {}
+    extraVolumes: []
+    files: []
+  argoCD:
+    deployKeys:
+      kubeaidConfig:
+        privateKeyFilePath: /home/param/.ssh/id_ed25519
+      kubeaid:
+        privateKeyFilePath: /home/param/.ssh/id_ed25519
+
+cloud:
+  local: {}
+
+obmondo:
+  customerID: local-dev
+
