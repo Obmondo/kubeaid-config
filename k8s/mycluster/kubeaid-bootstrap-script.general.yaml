@@ -1,0 +1,40 @@
+git:
+  sshUsername: git
+  useSSHAgent: true
+
+forkURLs:
+  kubeaid:
+    url: https://github.com/Obmondo/KubeAid.git
+    version: 28.0.0
+  kubeaidConfig:
+    url: git@github.com:shubham-cmyk/kubeaid-config.git
+    directory: 
+
+cluster:
+  type: workload
+  name: mycluster
+  k8sVersion: v1.35.4
+  enableAuditLogging: false
+  apiServer:
+    extraArgs: {}
+    extraVolumes: []
+    files: []
+    # Optional. Set cluster.apiServer.oidc to enable OIDC on
+    # kube-apiserver. Issuer URL is probed at bootstrap.
+    #
+    # oidc:
+    #   issuerUrl: https://keycloak.example/realms/clusters
+    #   clientId:  kubernetes-mycluster
+  argoCD:
+    deployKeys:
+      kubeaid:
+        privateKeyFilePath: /home/shubham/.ssh/id_rsa
+      kubeaidConfig:
+        privateKeyFilePath: /home/shubham/.ssh/id_rsa
+
+kubePrometheus:
+  version: v0.17.0
+
+cloud:
+  local: {}
+
