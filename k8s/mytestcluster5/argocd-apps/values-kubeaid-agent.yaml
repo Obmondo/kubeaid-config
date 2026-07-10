@@ -1,0 +1,18 @@
+---
+
+appConfig:
+  argocd:
+    url: "argocd-server.argocd.svc.cluster.local:443"
+  kubeaidConfig:
+    clusterName: mytestcluster5
+  obmondoAPI:
+    url: https://api-beta.obmondo.com/api
+  kubeaidUpdate:
+    enable: true
+    checkInterval: 5m
+
+deployment:
+  image:
+    repository: harbor.obmondo.com/obmondo/kubeaid-agent
+    tag: "201"
+    pullPolicy: Always
