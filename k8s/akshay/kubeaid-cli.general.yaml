@@ -7,7 +7,7 @@ forkURLs:
     url: https://github.com/Obmondo/KubeAid.git
     version: 31.1.1
   kubeaidConfig:
-    url: https://github.com/Obmondo/kubeaid-config.git
+    url: git@github.com:Obmondo/kubeaid-config.git
     directory: 
 
 cluster:
@@ -24,12 +24,20 @@ cluster:
   argoCD:
     deployKeys:
       kubeaidConfig:
-        privateKeyFilePath: "/home/deepak/test/k8s/private.key"
+        privateKeyFilePath: /home/deepak/test/k8s/private.key
 
 kubePrometheus:
   version: v0.18.0
 
 cloud:
-  local: {}
+  bare-metal:
+    ssh:
+      port: 22
+    controlPlane:
+      endpoint:
+        host: 192.168.1.19
+        port: 6443
+      hosts:
+        - publicAddress: 192.168.1.19
 
 

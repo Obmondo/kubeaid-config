@@ -5,26 +5,37 @@ metadata:
     kubeaid.io/version: 31.1.1
     kubeaid.io/managed-by: kubeaid
     kubeaid.io/sync-order: "10"
-  name: sealed-secrets
+  name: cilium
   namespace: argocd
-  finalizers:
-    - argocd.argoproj.io/resources-finalizer
 spec:
   destination:
+    namespace: cilium
     server: https://kubernetes.default.svc
-    namespace: sealed-secrets
   project: kubeaid
   sources:
     - repoURL: https://github.com/Obmondo/KubeAid.git
-      path: argocd-helm-charts/sealed-secrets
+      path: argocd-helm-charts/cilium
       targetRevision: 31.1.1
       helm:
         valueFiles:
-          - $values/k8s/akshay/argocd-apps/values-sealed-secrets.yaml
+          - $values/k8s/akshay/argocd-apps/values-cilium.yaml
     - repoURL: git@github.com:Obmondo/kubeaid-config.git
       targetRevision: HEAD
       ref: values
   syncPolicy:
     syncOptions:
-      - ApplyOutOfSyncOnly=true
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+  ignoreDifferences:
+    - kind: Secret
+      name: cilium-ca
+      jsonPointers:
+        - /data
+    - kind: Secret
+      name: hubble-server-certs
+      jsonPointers:
+        - /data
+    - kind: Secret
+      name: hubble-relay-client-certs
+      jsonPointers:
+        - /data

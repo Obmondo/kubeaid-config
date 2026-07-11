@@ -1,0 +1,75 @@
+apiVersion: kubeone.k8c.io/v1beta2
+kind: KubeOneCluster
+
+name: akshay
+
+cloudProvider:
+  none: {}
+
+versions:
+  kubernetes: v1.34.9
+
+apiEndpoint:
+  host: 192.168.1.19
+  port: 6443
+
+controlPlane:
+  hosts:
+    -
+      sshPort: 22
+      publicAddress: 192.168.1.19
+
+clusterNetwork:
+  podSubnet: "10.244.0.0/16"
+  serviceSubnet: "10.96.0.0/12"
+  cni:
+    external: {}
+  kubeProxy:
+    skipInstallation: true
+
+machineController:
+  deploy: false
+
+operatingSystemManager:
+  deploy: false
+
+staticWorkers:
+  hosts:
+
+dynamicWorkers: []
+
+helmReleases:
+  - repoURL: https://helm.cilium.io/
+    chart: cilium
+    version: 1.19.5
+    releaseName: cilium
+    namespace: cilium
+    wait: true
+    values:
+      - inline:
+          operator:
+            replicas: 1
+            rollOutPods: true
+            priorityClassName: system-node-critical
+          kubeProxyReplacement: "true"
+          k8sServiceHost: "192.168.1.19"
+          k8sServicePort: "6443"
+          ipam:
+            mode: kubernetes
+          rollOutCiliumPods: true
+          priorityClassName: system-node-critical
+          hubble:
+            metrics:
+              enabled:
+                - dns:query;ignoreAAAA
+                - drop
+                - tcp
+                - flow
+                - icmp
+                - http
+            relay:
+              enabled: true
+              rollOutPods: true
+            ui:
+              enabled: true
+              rollOutPods: true
