@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kubeaid
+    app.kubernetes.io/name: etcd
+  name: etcd
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: metrics
+    scheme: http
+  jobLabel: app.kubernetes.io/name
+  namespaceSelector:
+    matchNames:
+    - kube-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/managed-by: kubeaid
+      app.kubernetes.io/name: etcd
