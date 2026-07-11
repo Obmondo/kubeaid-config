@@ -7,7 +7,7 @@ forkURLs:
     url: https://github.com/Obmondo/KubeAid.git
     version: 31.1.1
   kubeaidConfig:
-    url: git@github.com:Obmondo/kubeaid-config.git
+    url: https://github.com/Obmondo/kubeaid-config.git
     directory: 
 
 cluster:
