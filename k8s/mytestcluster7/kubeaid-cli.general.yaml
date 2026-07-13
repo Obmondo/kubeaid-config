@@ -1,0 +1,37 @@
+git:
+  sshUsername: git
+  useSSHAgent: true
+
+forkURLs:
+  kubeaid:
+    url: https://github.com/Obmondo/KubeAid.git
+    version: 31.1.1
+  kubeaidConfig:
+    url: git@github.com:Obmondo/kubeaid-config.git
+    directory:
+
+cluster:
+  type: workload
+  name: mytestcluster7
+  k8sVersion: v1.35.6
+  enableAuditLogging: false
+  apiServer:
+    extraArgs: {}
+    extraVolumes: []
+    files: []
+  argoCD:
+    deployKeys:
+      kubeaidConfig:
+        privateKeyFilePath: /home/shubham/.ssh/id_rsa
+
+kubePrometheus:
+  version: v0.18.0
+
+cloud:
+  local: {}
+
+obmondo:
+  monitoring: true
+  certPath: /home/shubham/enableIT/kubeaid-agent/tls.crt
+  keyPath: /home/shubham/enableIT/kubeaid-agent/tls.key
+

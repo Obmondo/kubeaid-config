@@ -1,0 +1,4 @@
+---
+appConfig:
+  kubeaidConfig:
+    clusterName: mytestcluster7
