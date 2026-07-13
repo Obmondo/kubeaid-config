@@ -14,5 +14,5 @@ appConfig:
 deployment:
   image:
     repository: harbor.obmondo.com/obmondo/kubeaid-agent
-    tag: "201"
+    tag: "update"
     pullPolicy: Always
