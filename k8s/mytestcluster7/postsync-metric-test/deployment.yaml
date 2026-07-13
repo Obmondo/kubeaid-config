@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postsync-metric-test
+  namespace: postsync-test
+  labels:
+    app: postsync-metric-test
+    kubeaid.io/managed-by: kubeaid
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 60
+  selector:
+    matchLabels:
+      app: postsync-metric-test
+  template:
+    metadata:
+      labels:
+        app: postsync-metric-test
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: metric-test
+          # Non-existent image -> ImagePullBackOff -> never Ready.
+          image: registry.invalid/postsync-metric-test:404
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
