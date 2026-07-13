@@ -8,7 +8,7 @@ appConfig:
   obmondoAPI:
     url: https://api-beta.obmondo.com/api
   kubeaidUpdate:
-    enable: true
+    enabled: true
     checkInterval: 5m
 
 deployment:
