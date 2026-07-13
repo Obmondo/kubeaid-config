@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postsync-metric-test
+  namespace: postsync-test
+  labels:
+    app: postsync-metric-test
+    kubeaid.io/managed-by: kubeaid
+  annotations:
+    # Run this Job after ArgoCD finishes syncing, on every sync.
+    argocd.argoproj.io/hook: PostSync
+    # Clean the Job up once it succeeds; leave failed Jobs behind for debugging.
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  backoffLimit: 3
+  # Give the hook a bounded lifetime so a wedged run can't linger forever.
+  activeDeadlineSeconds: 300
+  template:
+    metadata:
+      labels:
+        app: postsync-metric-test
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: metric-test
+          image: curlimages/curl:8.10.1
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -eu
+              PROM="http://prometheus-k8s.monitoring.svc.cluster.local:9090"
+              echo "PostSync metric test: querying Prometheus at ${PROM}"
+              resp="$(curl -sS -m 15 --retry 10 --retry-connrefused --retry-delay 3 \
+                "${PROM}/api/v1/query?query=up")"
+              echo "response: ${resp}"
+              case "${resp}" in
+                *'"status":"success"'*)
+                  echo "PostSync metric test PASSED — Prometheus metric pipeline is live"
+                  ;;
+                *)
+                  echo "PostSync metric test FAILED — unexpected Prometheus response"
+                  exit 1
+                  ;;
+              esac
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
