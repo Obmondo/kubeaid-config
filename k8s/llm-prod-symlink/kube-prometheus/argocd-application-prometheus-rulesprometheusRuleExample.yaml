@@ -1,0 +1,579 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kubeaid-managed-apps
+  namespace: monitoring
+spec:
+  groups:
+  - name: kubeaidManagedApps
+    rules:
+    - expr: 0
+      labels:
+        name: mattermost-team-edition
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: cloudnative-pg
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: traefik-forward-auth
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: aws-efs-csi-driver
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: kubeaid-addons
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: ccm-hetzner
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: harbor
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: teleport-kube-agent
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: friendica
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: opsbridge
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: opensearch
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: cilium
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: localpv-provisioner
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: hetzner-robot
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: coredns
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: traefik
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: erpnext
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: mongodb-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: metallb
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: smartmon-exporter
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: ccm-aws
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: mastodon
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: vuls-dictionary
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: gitlab-runner
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: netbird-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: external-dns
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: netbird
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: gitea-runner
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: odoo
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: ciso-assistant
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: oncall
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: strimzi-kafka-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: kubeaid-security-config
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: crossplane
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: openobserve
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: errbot
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: metal3
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: castopod
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: kubescape-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: snapshot-controller
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: opendesk-coturn
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: grafana-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: azuredisk-csi-driver
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: opentelemetry-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: metrics-server
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: ccm-hcloud
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: redmine
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: teleport-cluster
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: velero
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: dokuwiki
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: rabbitmq-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: capi-cluster
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: seaweedfs
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: kubernetes-dashboard
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: kyverno
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: peertube
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: kube2iam
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: matomo
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: loki-stack
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: prometheus-adapter
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: haproxy
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: opensearch-dashboards
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: sftpgo
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: k8s-event-logger
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: redis-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: mail
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: postgres-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: step-ca
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: garage
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: azure-workload-identity-webhook
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: sonarqube
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: reloader
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: trivy-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: opensearch-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: sealed-secrets
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: crossplane-compositions
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: keda
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: opencost
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: rook-ceph
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: ccm-azure
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: argocd-image-updater
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: kubeaid-agent
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: fluent-bit
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: obmondo-k8s-agent
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: ingress-nginx
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: argo-cd
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: whoami
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: hcloud-csi-driver
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: kubeaid-custom-azure
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: circleci-runner
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: filebeat
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: minio
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: yetibot
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: prometheus-linuxaid
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: funkwhale
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: keycloakx
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: tigera-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: relate
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: zfs-localpv
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: mattermost-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: mariadb-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: graylog
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: cluster-api-operator
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: pixelfed
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: lemmy
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: calcom
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: gatekeeper
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: cert-manager
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: openvox
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: aws-ebs-csi-driver
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: cerebro
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: crossplane-providers-and-functions
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: gitea
+        project: kubeaid
+      record: kubeaidManagedApps
+    - expr: 0
+      labels:
+        name: cluster-autoscaler
+        project: kubeaid
+      record: kubeaidManagedApps
