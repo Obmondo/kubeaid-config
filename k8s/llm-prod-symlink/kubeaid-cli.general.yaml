@@ -1,0 +1,41 @@
+git:
+  sshUsername: git
+  useSSHAgent: true
+
+forkURLs:
+  kubeaid:
+    url: https://github.com/Obmondo/KubeAid.git
+    version: 32.1.0
+  kubeaidConfig:
+    url: git@github.com:Obmondo/kubeaid-config.git
+    directory: 
+
+cluster:
+  type: workload
+  name: llm-prod-symlink
+  k8sVersion: v1.34.10
+  enableAuditLogging: false
+  apiServer:
+    extraArgs: {}
+    extraVolumes: []
+    files: []
+  argoCD:
+    deployKeys:
+      kubeaidConfig:
+        privateKeyFilePath: /home/faizan/.ssh/id_rsa
+
+kubePrometheus:
+  version: v0.18.0
+
+cloud:
+  bare-metal:
+    ssh:
+      port: 22
+    controlPlane:
+      endpoint:
+        host: 192.168.122.75
+        port: 6443
+      hosts:
+        - publicAddress: 192.168.122.75
+
+
